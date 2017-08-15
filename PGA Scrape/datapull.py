@@ -84,9 +84,15 @@ def get_stats_csv(csv_location = 'statindex.csv', verbose=False, year=2017):
             csv_file_path = str(stat_index[i])+"_"+str(year)+".csv"
             data.to_csv(csv_file_path)
 
-def main():
-    get_stats_csv('statindexes.csv', True)
+def get_multiyear_stats_csv(years):
+    for i in years:
+        print("Finding Stats for {}".format(i))
+        get_stats_csv('statindexes.csv', True, i)
 
+def main():
+    #get_stats_csv('statindexes.csv', True)
+    years = [2011,2012,2013,2014,2015]
+    get_multiyear_stats_csv(years)
 
 if __name__ == "__main__":
     main()
