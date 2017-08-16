@@ -87,6 +87,11 @@ def get_multiyear_stats_csv(years):
         print("Finding Stats for {}".format(i))
         get_stats_csv('statindexes.csv', i)
 
+def get_multiyear_stats_csv_3n5(years):
+    for i in years:
+        print("Finding Stats for {}".format(i))
+        get_stats_csv_3n5('statindexes.csv', i)
+
 #get_stats_csv but for a single stat by number
 def get_one_stat(statnumber):
     print("Running Get Sinlge Stat [CSV]...")
@@ -138,9 +143,9 @@ def get_stats_csv_3n5(csv_location = 'statindex.csv', year=2017, sep_folders=Fal
 
 def main():
     #get_stats_csv_3n5('statindexes.csv',2015)
-    #years = [2011,2012,2013,2014,2015]
-    #get_multiyear_stats_csv(years)
-    get_one_stat_3n5(101)
+    years = [2011,2012,2013,2014,2015,2016]
+    get_multiyear_stats_csv_3n5(years)
+    #get_one_stat_3n5(101)
 
 if __name__ == "__main__":
     main()
