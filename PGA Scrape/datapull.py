@@ -140,7 +140,7 @@ def main():
     #get_stats_csv_3n5('statindexes.csv',2015)
     #years = [2011,2012,2013,2014,2015]
     #get_multiyear_stats_csv(years)
-    #get_one_stat_3n5(101)
+    get_one_stat_3n5(101)
 
 if __name__ == "__main__":
     main()
