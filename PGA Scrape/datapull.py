@@ -57,42 +57,39 @@ def get_stat_index(csv_location):
 
 
 #Year = year to get stats for
-def get_stats_csv(csv_location = 'statindex.csv', verbose=False, year=2017):
-    if(verbose):
-        print("Running Get Stats [CSV]...")
-        stat_index = get_stat_index(csv_location)
-        print("Stat Indexes Found...")
-        print("Getting URLs...")
+def get_stats_csv(csv_location = 'statindex.csv', year=2017, sep_folders=False):
+    print("Running Get Stats [CSV]...")
+    stat_index = get_stat_index(csv_location)
+    print("Stat Indexes Found...")
+    print("Getting URLs...")
 
-        urls = get_links(year, stat_index)
+    urls = get_links(year, stat_index)
 
-        print("{} URLs Found...".format(len(urls)))
-        print("Processing URLs...")
-        data = pd.DataFrame()
-        for i in range(len(urls)):
-            data = scrape_pga_data(urls[i])
-            #write CSV using stat_index[i] as title
-            csv_file_path = str(stat_index[i])+"_"+str(year)+".csv"
-            data.to_csv(csv_file_path)
-    else:
-        stat_index = get_stat_index(csv_location)
-        urls = get_links(year, stat_index)
-        data = pd.DataFrame()
-        for i in range(len(urls)):
-            data = scrape_pga_data(urls[i])
-            #write CSV using stat_index[i] as title
-            csv_file_path = str(stat_index[i])+"_"+str(year)+".csv"
-            data.to_csv(csv_file_path)
+    print("{} URLs Found...".format(len(urls)))
+    print("Processing URLs...")
+    data = pd.DataFrame()
+    for i in range(len(urls)):
+        data = scrape_pga_data(urls[i])
+        #write CSV using stat_index[i] as title
+        if(sep_folders):
+            current_directory = os.getcwd()
+            final_directory = os.path.join(current_directory, str(year))
+            if not os.path.exists(final_directory):
+                os.makedirs(final_directory)
+            csv_file_path = str(year)+"/"+str(stat_index[i])+"_"+str(year)+".csv"
+        csv_file_path = str(stat_index[i])+"_"+str(year)+".csv"
+        data.to_csv(csv_file_path)
+
 
 def get_multiyear_stats_csv(years):
     for i in years:
         print("Finding Stats for {}".format(i))
-        get_stats_csv('statindexes.csv', True, i)
+        get_stats_csv('statindexes.csv', i)
 
 def main():
-    #get_stats_csv('statindexes.csv', True)
-    years = [2011,2012,2013,2014,2015]
-    get_multiyear_stats_csv(years)
+    get_stats_csv('statindexes.csv',2016)
+    #years = [2011,2012,2013,2014,2015]
+    #get_multiyear_stats_csv(years)
 
 if __name__ == "__main__":
     main()
